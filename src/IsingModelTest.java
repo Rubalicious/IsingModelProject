@@ -64,5 +64,40 @@ public class IsingModelTest {
 		assertEquals(1, board.getOrientation(3, 2));
 		assertEquals(neighbors1, board.getNeighborList(3, 2));
 	}
+	
+	@Test
+	public void testCalculateHamiltonian(){
+		int [][] state = {		{1,0,1,0},
+								{0,0,1,1},
+								{0,1,1,0},
+								{0,1,0,0}		};
+		IsingModel board = new IsingModel(state);
+		
+		assertEquals(5, board.calculateHamiltonian(1, 1));
+		board.setOrientation(1, 1, 1);
+		assertEquals(3, board.calculateHamiltonian(1, 1));
+	}
+	
+	@Test
+	public void testCalculateChangeInEnergy(){
+		int [][] state = {		{1,0,1,0},
+								{0,0,1,1},
+								{0,1,1,0},
+								{0,1,0,0}		};
+		IsingModel board = new IsingModel(state);
+		
+		assertEquals(-2, board.changeInEnergy(1,1));
+	}
+	
+	@Test
+	public void testAcceptanceDecision(){
+		int [][] state = {		{1,0,1,0},
+								{0,0,1,1},
+								{0,1,1,0},
+								{0,1,0,0}		};
+		IsingModel board = new IsingModel(state);
+		
+		assertTrue(board.acceptDecision(1,1));
+	}
 
 }

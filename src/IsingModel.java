@@ -77,6 +77,42 @@ public class IsingModel {
 		return neighbors;
 	}
 	
+	public int calculateHamiltonian(int x, int y){
+		int hamiltonian = 0;
+		int neighbors [] = getNeighborList(x,y);
+		for(int i = 0; i < neighbors.length; i ++){
+			if(getOrientation(x,y) != neighbors[i]) hamiltonian++;
+		}
+		return hamiltonian;
+	}
+	public int changeInEnergy(int x, int y) {
+		int init = calculateHamiltonian(x,y);
+		changeValue(x,y);
+		int fina = calculateHamiltonian(x,y);
+		return fina - init;
+	}
+	private void changeValue(int x, int y){
+		if(getOrientation(x,y)==0) setOrientation(x,y, 1);
+		if(getOrientation(x,y)==1) setOrientation(x,y, 0);
+	}
+	
+	public boolean acceptDecision(int x, int y){
+		double probability = 0.0;
+		double randomVariable = (double) Math.random();
+		int delta = changeInEnergy(x,y);
+		if(delta<=0) return true;
+		else{
+			probability = Math.exp(-delta);
+			if(probability < randomVariable){
+				changeValue(x,y);
+				return true;
+			}
+			else{
+				return false;
+			}
+		}
+	}
+	
 	
 
 }
