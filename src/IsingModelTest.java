@@ -4,7 +4,7 @@ import org.junit.Test;
 
 
 public class IsingModelTest {
-
+//tests are working
 	@Test
 	public void test() {
 		IsingModel board = new IsingModel(10);
