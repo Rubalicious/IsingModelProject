@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class IsingModel {
 	private class block{
@@ -10,6 +12,7 @@ public class IsingModel {
 	}
 	
 	private block [][] state;
+	private Random generator = new Random();
 	
 	public IsingModel(int n){
 		state = setState(n);//square default size = 10
@@ -69,7 +72,7 @@ public class IsingModel {
 				if(!(x==i && y==j)){
 					int xtemp = (i+state.length)%state.length;
 					int ytemp = (j+state[0].length)%state[0].length;
-					neighbors[length] = getOrientation(i,j);
+					neighbors[length] = getOrientation(xtemp,ytemp);
 					length++;
 				} 
 			}
@@ -85,16 +88,29 @@ public class IsingModel {
 		}
 		return hamiltonian;
 	}
+	private int original;
 	public int changeInEnergy(int x, int y) {
 		int init = calculateHamiltonian(x,y);
-		changeValue(x,y);
+		
+		int nl = getNeighborList(x,y).length; 
+		int randomNeighbour = (int) generator.nextInt(8);
+		original = getOrientation(x,y);
+		int orientationOfNeighbour = getNeighborList(x,y)[randomNeighbour];
+		if(original == orientationOfNeighbour){
+			return 0;
+		}
+		else{
+			 setOrientation(x,  y, orientationOfNeighbour);
+		}
+		
 		int fina = calculateHamiltonian(x,y);
 		return fina - init;
 	}
-	private void changeValue(int x, int y){
-		if(getOrientation(x,y)==0) setOrientation(x,y, 1);
-		if(getOrientation(x,y)==1) setOrientation(x,y, 0);
-	}
+	
+//	private void changeValue(int x, int y, int celltype){
+//		if(getOrientation(x,y)==0) setOrientation(x,y, 1);
+//		if(getOrientation(x,y)==1) setOrientation(x,y, 0);
+//	}
 	
 	public boolean acceptDecision(int x, int y){
 		double probability = 0.0;
@@ -104,10 +120,10 @@ public class IsingModel {
 		else{
 			probability = Math.exp(-delta);
 			if(probability < randomVariable){
-				changeValue(x,y);
 				return true;
 			}
 			else{
+				setOrientation(x,y, original);
 				return false;
 			}
 		}
