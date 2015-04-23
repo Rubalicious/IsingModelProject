@@ -138,9 +138,6 @@ public class IsingModel {
 		System.out.println("I'm testing out my board\n");
 		System.out.println("==========================");
 		System.out.println(example.toString());
-		for(int i = 0; i <10; i++){
-			System.out.println("hello world");
-		}
 	}
 	
 
