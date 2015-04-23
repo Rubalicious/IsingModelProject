@@ -90,23 +90,34 @@ public class IsingModel {
 		}
 		return hamiltonian;
 	}
+	
+	public class packet{
+		public int nOrientation;
+		public int delta;
+	}
+	
 	private int original;
-	public int changeInEnergy(int x, int y) {
+	
+	public packet changeInEnergy(int x, int y) {
+		packet p = new packet();
 		int init = calculateHamiltonian(x,y);
 		
 		int nl = getNeighborList(x,y).length; 
 		int randomNeighbour = (int) generator.nextInt(8);
 		original = getOrientation(x,y);
 		int orientationOfNeighbour = getNeighborList(x,y)[randomNeighbour];
+		p.nOrientation = orientationOfNeighbour;
 		if(original == orientationOfNeighbour){
-			return 0;
+			p.delta = 0;
+			return p;
 		}
 		else{
 			 setOrientation(x,  y, orientationOfNeighbour);
 		}
 		
 		int fina = calculateHamiltonian(x,y);
-		return fina - init;
+		p.delta = fina - init;
+		return p;
 	}
 	
 //	private void changeValue(int x, int y, int celltype){
@@ -117,7 +128,7 @@ public class IsingModel {
 	public boolean acceptDecision(int x, int y){
 		double probability = 0.0;
 		double randomVariable = (double) Math.random();
-		int delta = changeInEnergy(x,y);
+		int delta = changeInEnergy(x,y).delta;
 		if(delta<=0) return true;
 		else{
 			probability = Math.exp(-delta);

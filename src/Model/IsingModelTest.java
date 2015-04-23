@@ -116,7 +116,13 @@ public class IsingModelTest {
 								{0,1,0,0}		};
 		IsingModel board = new IsingModel(state);
 		
-		assertEquals(-2, board.changeInEnergy(1,1));
+		if(board.changeInEnergy(1,1).nOrientation == 0){
+			assertEquals(0, board.changeInEnergy(1,1).delta);
+		}
+		else if(board.changeInEnergy(1, 1).nOrientation == 1){
+			assertEquals(-2, board.changeInEnergy(1,1).delta);
+		}
+		
 	}
 	
 	@Test

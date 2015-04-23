@@ -26,9 +26,13 @@ public class Controller extends JFrame {
 		setJMenuBar(theMenuBar);
 		
 		JPanel display = new JPanel();
+		display.add(new CustomJPanel(null));
+		
 		JPanel buttons = new JPanel();
+		JButton runButton = new JButton("Run");
 		JSlider slider = new JSlider();
 		buttons.add(slider);
+		buttons.add(runButton);
 	}
 	
 }
