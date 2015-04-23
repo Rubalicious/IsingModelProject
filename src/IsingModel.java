@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.Scanner;
 
 
 public class IsingModel {
@@ -129,6 +130,18 @@ public class IsingModel {
 		}
 	}
 	
+	public static void main (String []args){
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Enter integer parameter: ");
+		int n = scan.nextInt();
+		IsingModel example = new IsingModel (n);
+		System.out.println("I'm testing out my board\n");
+		System.out.println("==========================");
+		System.out.println(example.toString());
+		for(int i = 0; i <10; i++){
+			System.out.println("hello world");
+		}
+	}
 	
 
 }
