@@ -27,6 +27,8 @@ public class Controller extends JFrame {
 		
 		JPanel display = new JPanel();
 		JPanel buttons = new JPanel();
+		JSlider slider = new JSlider();
+		buttons.add(slider);
 	}
 	
 }
