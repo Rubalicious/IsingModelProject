@@ -8,7 +8,7 @@ public class IsingModelTest {
 //tests are working
 	@Test
 	public void test() {
-		IsingModel board = new IsingModel(10);
+		IsingModel board = new IsingModel(100);
 		System.out.println(board.toString());
 	}
 	

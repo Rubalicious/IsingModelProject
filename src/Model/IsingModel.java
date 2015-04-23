@@ -65,7 +65,7 @@ public class IsingModel {
 	public void setOrientation(int x, int y, int newOrientation){
 		state[x][y].orientation = newOrientation;
 	}
-	
+	//consider return an arraylist<neighbours>
 	public int[] getNeighborList(int x, int y){
 		int neighbors[] = new int[8];
 		int length = 0;
