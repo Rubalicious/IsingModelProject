@@ -139,6 +139,8 @@ public class IsingModel {
 		System.out.println("I'm testing out my board\n");
 		System.out.println("==========================");
 		System.out.println(example.toString());
+System.out.println("I'm testing to see if this edit works from my phone");
+
 	}
 	
 
