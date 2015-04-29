@@ -17,6 +17,7 @@ public class CustomJPanel extends JPanel {
 	public void paintComponent(Graphics g){
 		Graphics2D g2 = (Graphics2D) g;
 		
+		
 	}
 	public void step(){
 		int x = (int)(Math.random()*simulation.size());

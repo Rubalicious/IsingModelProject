@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -29,6 +31,7 @@ public class Controller extends JFrame {
 		}
 	});
 	CustomJPanel ising;
+	
 	public Controller(){
 		super("Ising Model Simulation");
 		setLayout(new BorderLayout());
@@ -50,7 +53,6 @@ public class Controller extends JFrame {
 		ising = new CustomJPanel(null);
 		
 		JButton runButton = new JButton("Run");
-		JSlider slider = new JSlider();
 
 		//add in a dropdown box for pixels
 		runButton.addActionListener(new ActionListener(){
@@ -59,11 +61,44 @@ public class Controller extends JFrame {
 				if(run){
 					runButton.setText("pause");
 					t.start();
+					repaintTimer.start();
 				}
 				else{
 					runButton.setText("run");
 					t.stop();
+					repaintTimer.stop();
 				}
+			}
+		});
+		
+		JSlider slider = new JSlider();
+		slider.addComponentListener(new ComponentListener(){
+			public void actionPerformed(ActionEvent e){
+				
+			}
+
+			@Override
+			public void componentResized(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentShown(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void componentHidden(ComponentEvent e) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 		
@@ -72,7 +107,6 @@ public class Controller extends JFrame {
 		add(runButton, BorderLayout.SOUTH);
 		setSize(new Dimension(500,500));
 		pack();
-		repaintTimer.start();
 		setVisible(true);
 	}
 	
