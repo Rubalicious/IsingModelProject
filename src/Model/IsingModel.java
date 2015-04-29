@@ -15,8 +15,10 @@ public class IsingModel {
 	
 	private block [][] state;
 	private Random generator = new Random();
+	private int size;
 	
 	public IsingModel(int n){
+		size = n;
 		state = setState(n);//square default size = 10
 	}
 	public IsingModel(int [][] matrix){
@@ -140,6 +142,10 @@ public class IsingModel {
 				return false;
 			}
 		}
+	}
+	
+	public int size(){
+		return size;
 	}
 	
 	public static void main (String []args){
