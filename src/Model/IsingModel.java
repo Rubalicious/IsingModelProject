@@ -16,6 +16,7 @@ public class IsingModel {
 	private block [][] state;
 	private Random generator = new Random();
 	private int size;
+	private int temperature;
 	
 	public IsingModel(int n){
 		size = n;
