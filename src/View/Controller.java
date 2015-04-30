@@ -34,7 +34,7 @@ public class Controller extends JFrame {
 	
 	public Controller(){
 		super("Ising Model Simulation");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(500,500));
 		
