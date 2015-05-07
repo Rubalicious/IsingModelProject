@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 
+import Model.IsingModel;
+
 
 public class Controller extends JFrame {
 	private boolean run = false;
@@ -30,14 +33,17 @@ public class Controller extends JFrame {
 			repaint();
 		}
 	});
-	CustomJPanel ising;
+	private CustomJPanel ising;
+	private JLabel comment = new JLabel("A Comment here");
 	
 	public Controller(){
 		super("Ising Model Simulation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BorderLayout());
+		setLocation(400, 150);
+		//setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(500,500));
 		
+		//menubar
 		JMenuBar theMenuBar = new JMenuBar();
 		JMenu file = new JMenu("file");
 		JMenuItem about = new JMenuItem("about");
@@ -50,9 +56,13 @@ public class Controller extends JFrame {
 		file.add(about);
 		theMenuBar.add(file);
 		setJMenuBar(theMenuBar);
-		
-		ising = new CustomJPanel(null);
-		
+		//CustomJPanel
+		ising = new CustomJPanel(new IsingModel(5));
+		ising.setLocation(20,20);
+		ising.setSize(300,300);
+		comment.setSize(150, 20);
+		comment.setLocation(50, 50);
+		add(comment);
 		JButton runButton = new JButton("Run");
 
 		//add in a dropdown box for pixels
