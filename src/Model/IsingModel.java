@@ -49,6 +49,10 @@ public class IsingModel {
 		return state;
 	}
 	
+	private block[][] getState(){
+		return state;
+	}
+	
 	@Override
 	public String toString(){
 		String result = "";

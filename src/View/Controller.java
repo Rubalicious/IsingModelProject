@@ -42,6 +42,7 @@ public class Controller extends JFrame {
 		setLocation(400, 150);
 		//setLayout(new BorderLayout());
 		setPreferredSize(new Dimension(500,500));
+		this.setResizable(true);
 		
 		//menubar
 		JMenuBar theMenuBar = new JMenuBar();
@@ -57,9 +58,9 @@ public class Controller extends JFrame {
 		theMenuBar.add(file);
 		setJMenuBar(theMenuBar);
 		//CustomJPanel
-		ising = new CustomJPanel(new IsingModel(5));
-		ising.setLocation(20,20);
-		ising.setSize(300,300);
+		ising = new CustomJPanel(new IsingModel(500));
+		//ising.setLocation(20,20);
+		//ising.setSize(100,100);
 		comment.setSize(150, 20);
 		comment.setLocation(50, 50);
 		add(comment);
