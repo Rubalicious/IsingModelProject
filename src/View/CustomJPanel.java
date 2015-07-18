@@ -17,7 +17,7 @@ public class CustomJPanel extends JPanel {
 	
 	private IsingModel simulation;
 	private static int SIZE;
-	private JLabel [][] pixel = new JLabel [SIZE][SIZE];
+	private JPanel [][] pixel = new JPanel [SIZE][SIZE];
 	
 	public CustomJPanel(IsingModel sim){
 		simulation = sim;
@@ -25,16 +25,24 @@ public class CustomJPanel extends JPanel {
 		setSize(new Dimension(500, 500));
 		setLayout(new BorderLayout());
 		setVisible(true);
+		this.setBackground(Color.YELLOW);
+//		setUpPixels();
 	}
 	
 	private void setUpPixels() {
+		this.setBackground(Color.YELLOW);
 		for(int i = 0; i < SIZE; i ++){
-			for(int j = 0; j <SIZE; j++){
-				pixel[i][j] = new JLabel();
+			for(int j = 0; j < SIZE; j++){
+				pixel[i][j] = new JPanel();
 				pixel[i][j].setSize(5,5);
-				//pixel[i][j].setLocation(5*i, 5*j);
-				pixel[i][j].setBackground(Color.BLUE);
+				pixel[i][j].setLocation(5*i, 5*j);
 				this.add(pixel[i][j], BorderLayout.CENTER);
+				if (simulation.getOrientation(i, j)==1){
+					pixel[i][j].setBackground(Color.BLUE);
+				}
+				else{
+					pixel[i][j].setBackground(Color.YELLOW);
+				}
 			}
 		}
 		
@@ -69,11 +77,7 @@ public class CustomJPanel extends JPanel {
 		
 		
 	}
-	public void step(){
-		int x = (int)(Math.random()*simulation.size());
-		int y = (int)(Math.random()*simulation.size());
-		simulation.acceptDecision(x, y);
-	}
+	
 
 	public static void main (String [] args){
 		//CustomJPanel panel = new CustomJPanel(null);

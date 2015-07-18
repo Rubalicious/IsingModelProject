@@ -152,6 +152,16 @@ public class IsingModel {
 	public int size(){
 		return size;
 	}
+	public void changedOrientation(int x, int y) {
+		if (this.acceptDecision(x, y)){
+			if(this.getOrientation(x, y) == 1){
+				this.setOrientation(x, y, 0);
+			}
+			else{
+				this.setOrientation(x, y, 1);
+			}
+		}
+	}
 	
 	public static void main (String []args){
 		Scanner scan = new Scanner(System.in);
@@ -161,9 +171,19 @@ public class IsingModel {
 		System.out.println("I'm testing out my board\n");
 		System.out.println("==========================");
 		System.out.println(example.toString());
-		System.out.println("I'm testing to see if this edit works from my phone");
+		System.out.println("I'm testing to see if this edit works from my phone\n");
+		
+		for (int i = 0; i < 10; i ++){
+			int x = (int)(Math.random()*example.size());
+			int y = (int)(Math.random()*example.size());
+			System.out.println("("+x+","+y+") accepted: "+example.acceptDecision(x, y));
+			example.changedOrientation(x,y);
+//			example.setOrientation(x, y, newOrientation);
+		}
+		System.out.println("\n"+example.toString());
 
 	}
+	
 	
 
 }

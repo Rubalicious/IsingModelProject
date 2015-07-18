@@ -3,6 +3,7 @@ package View;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -15,40 +16,62 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.Timer;
 
 import Model.IsingModel;
 
 
+
+@SuppressWarnings("serial")
 public class Controller extends JFrame {
+	//GLOBAL VARIABLES
+
+	//the run button
 	private boolean run = false;
-	private Timer t = new Timer(10, new ActionListener(){
+	
+//	the Timer for the ising model
+	private Timer t = new Timer(1, new ActionListener(){
 		public void actionPerformed(ActionEvent e){
-			ising.step();
+			step();
 		}
 	});
+//	the Timer to track when to refresh
 	private Timer repaintTimer = new Timer(100, new ActionListener(){
 		public void actionPerformed(ActionEvent e){
 			repaint();
 		}
 	});
-	private CustomJPanel ising;
-	private JLabel comment = new JLabel("A Comment here");
 	
+	//Size of Panel
+	private static int SIZE = 500;
+	
+	//model
+	private IsingModel simulation = new IsingModel(SIZE);
+	
+	//view
+	private JPanel [][] view = new JPanel[SIZE/5][SIZE/5];
+	
+	//Constructor
 	public Controller(){
 		super("Ising Model Simulation");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLocation(400, 150);
-		//setLayout(new BorderLayout());
-		setPreferredSize(new Dimension(500,500));
-		this.setResizable(true);
+		setLocation(200, 100);
+//		setLayout(new BorderLayout());
+		int sizeOfRunButton = 73;
+		setPreferredSize(new Dimension(SIZE,SIZE+sizeOfRunButton));
+		setSize(new Dimension(SIZE,SIZE));
+		this.setResizable(false);
+//		this.setBackground(Color.YELLOW);
+		
 		
 		//menubar
 		JMenuBar theMenuBar = new JMenuBar();
-		JMenu file = new JMenu("file");
+		JMenu file = new JMenu("File");
 		JMenuItem about = new JMenuItem("about");
 		
+		//adding responsiveness to the menu bar
 		about.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				JOptionPane.showMessageDialog(null, new JLabel("some string"));
@@ -57,14 +80,10 @@ public class Controller extends JFrame {
 		file.add(about);
 		theMenuBar.add(file);
 		setJMenuBar(theMenuBar);
-		//CustomJPanel
-		ising = new CustomJPanel(new IsingModel(500));
-		//ising.setLocation(20,20);
-		//ising.setSize(100,100);
-		comment.setSize(150, 20);
-		comment.setLocation(50, 50);
-		add(comment);
-		JButton runButton = new JButton("Run");
+		
+		setUpView();
+		
+		JButton runButton = new JButton("run");
 
 		//add in a dropdown box for pixels
 		runButton.addActionListener(new ActionListener(){
@@ -74,17 +93,22 @@ public class Controller extends JFrame {
 					runButton.setText("pause");
 					t.start();
 					repaintTimer.start();
+					System.out.println("run: "+ t.getDelay());
+//					view[2][2].setBackground(Color.RED);
 				}
 				else{
 					runButton.setText("run");
 					t.stop();
 					repaintTimer.stop();
+					System.out.println("stop: "+ t.getDelay());
 				}
 			}
 		});
 		
+		//To be added
 		JSlider slider = new JSlider();
 		slider.addComponentListener(new ComponentListener(){
+			@SuppressWarnings("unused")
 			public void actionPerformed(ActionEvent e){
 				
 			}
@@ -114,14 +138,53 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		add(ising, BorderLayout.CENTER);
 		add(slider, BorderLayout.SOUTH);
 		add(runButton, BorderLayout.SOUTH);
-		setSize(new Dimension(500,500));
 		pack();
 		setVisible(true);
 	}
 	
+	private Color up = Color.YELLOW;
+	private Color dn = Color.BLUE;
+	private void setUpView() {
+		for (int i = 1; i < view.length-1; i ++){
+			for (int j = 1; j < view[0].length-1; j++){
+				view[i][j] = new JPanel(new BorderLayout());
+				view[i][j].setLocation(5*i, 5*j);
+				view[i][j].setSize(5, 5);
+				if(simulation.getOrientation(i, j)==0){
+					view[i][j].setBackground(up);
+				}
+				else{
+					view[i][j].setBackground(dn);
+				}
+				add(view[i][j], BorderLayout.CENTER);
+			}
+		}
+		
+	}
+	
+	public void step(){
+		int x = (int)(Math.random()*simulation.size());
+		int y = (int)(Math.random()*simulation.size());
+		simulation.acceptDecision(x, y);
+		
+	}
+	
+	public void paintComponent(Graphics g){
+		for (int i = 0; i < view.length; i++){
+			for (int j = 0; j < view[0].length; j++){
+				if(simulation.getOrientation(i, j)==1){
+					view[i][j].setBackground(dn);
+				}
+				else{
+					view[i][j].setBackground(up);
+				}
+			}
+		}
+	}
+
+	@SuppressWarnings("unused")
 	public static void main (String [] args){
 		Controller window = new Controller(); 
 	}
