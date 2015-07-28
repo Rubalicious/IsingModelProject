@@ -140,6 +140,7 @@ public class IsingModel {
 		else{
 			probability = Math.exp(-delta);
 			if(probability < randomVariable){
+				setOrientation(x,y, notOriginal());
 				return true;
 			}
 			else{
@@ -149,6 +150,15 @@ public class IsingModel {
 		}
 	}
 	
+	private int notOriginal() {
+		if (original == 1){
+			return 0;
+		}
+		else{
+			return 1;
+		}
+		
+	}
 	public int size(){
 		return size;
 	}

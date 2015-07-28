@@ -66,7 +66,7 @@ public class Controller extends JFrame {
 //		this.setBackground(Color.YELLOW);
 		
 		
-		//menubar
+		//the menu bar
 		JMenuBar theMenuBar = new JMenuBar();
 		JMenu file = new JMenu("File");
 		JMenuItem about = new JMenuItem("about");
@@ -81,11 +81,14 @@ public class Controller extends JFrame {
 		theMenuBar.add(file);
 		setJMenuBar(theMenuBar);
 		
+		// initializing view
 		setUpView();
 		
 		JButton runButton = new JButton("run");
 
 		//add in a dropdown box for pixels
+		
+		int time = 0;
 		runButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				run = !run;
@@ -93,14 +96,12 @@ public class Controller extends JFrame {
 					runButton.setText("pause");
 					t.start();
 					repaintTimer.start();
-					System.out.println("run: "+ t.getDelay());
-//					view[2][2].setBackground(Color.RED);
 				}
 				else{
 					runButton.setText("run");
 					t.stop();
 					repaintTimer.stop();
-					System.out.println("stop: "+ t.getDelay());
+					System.out.println("stop: "+ (time - t.getDelay()));
 				}
 			}
 		});
@@ -164,21 +165,21 @@ public class Controller extends JFrame {
 		
 	}
 	
-	public void step(){
+	private void step(){
 		int x = (int)(Math.random()*simulation.size());
 		int y = (int)(Math.random()*simulation.size());
 		simulation.acceptDecision(x, y);
-		
+		setUpView();
 	}
 	
-	public void paintComponent(Graphics g){
+	public void paintComponent(){
 		for (int i = 0; i < view.length; i++){
 			for (int j = 0; j < view[0].length; j++){
 				if(simulation.getOrientation(i, j)==1){
-					view[i][j].setBackground(dn);
+					view[i][j].setBackground(up);
 				}
 				else{
-					view[i][j].setBackground(up);
+					view[i][j].setBackground(dn);
 				}
 			}
 		}
@@ -190,6 +191,4 @@ public class Controller extends JFrame {
 	}
 	
 }
-//google Observer and Observable
-//use a swing timer
-//Java graphics and paint component
+
