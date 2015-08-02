@@ -66,20 +66,7 @@ public class Controller extends JFrame {
 //		this.setBackground(Color.YELLOW);
 		
 		
-		//the menu bar
-		JMenuBar theMenuBar = new JMenuBar();
-		JMenu file = new JMenu("File");
-		JMenuItem about = new JMenuItem("about");
-		
-		//adding responsiveness to the menu bar
-		about.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				JOptionPane.showMessageDialog(null, new JLabel("some string"));
-			}
-		});
-		file.add(about);
-		theMenuBar.add(file);
-		setJMenuBar(theMenuBar);
+		setUpMenuBar();
 		
 		// initializing view
 		setUpView();
@@ -106,45 +93,28 @@ public class Controller extends JFrame {
 			}
 		});
 		
-		//To be added
-		JSlider slider = new JSlider();
-		slider.addComponentListener(new ComponentListener(){
-			@SuppressWarnings("unused")
-			public void actionPerformed(ActionEvent e){
-				
-			}
-
-			@Override
-			public void componentResized(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void componentMoved(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void componentShown(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-		});
-		
-		add(slider, BorderLayout.SOUTH);
 		add(runButton, BorderLayout.SOUTH);
 		pack();
 		setVisible(true);
 	}
 	
+	private void setUpMenuBar() {
+		//the menu bar
+		JMenuBar theMenuBar = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenuItem about = new JMenuItem("about");
+		
+		//adding responsiveness to the menu bar
+		about.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				JOptionPane.showMessageDialog(null, new JLabel("some string"));
+			}
+		});
+		file.add(about);
+		theMenuBar.add(file);
+		setJMenuBar(theMenuBar);
+	}
+
 	private Color up = Color.YELLOW;
 	private Color dn = Color.BLUE;
 	private void setUpView() {
@@ -185,7 +155,7 @@ public class Controller extends JFrame {
 		}
 	}
 
-	@SuppressWarnings("unused")
+//	@SuppressWarnings("unused")
 	public static void main (String [] args){
 		Controller window = new Controller(); 
 	}
