@@ -20,6 +20,7 @@ public class IsingModel {
 	
 	public IsingModel(int n){
 		size = n;
+		//intializes the state of the model
 		state = setState(n);//square default size = 10
 	}
 	public IsingModel(int [][] matrix){

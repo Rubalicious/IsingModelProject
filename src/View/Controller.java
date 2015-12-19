@@ -45,13 +45,14 @@ public class Controller extends JFrame {
 	});
 	
 	//Size of Panel
-	private static int SIZE = 500;
+	private static int SIZE = 100;
 	
 	//model
 	private IsingModel simulation = new IsingModel(SIZE);
+	private String current = "";
 	
 	//view
-	private JPanel [][] view = new JPanel[SIZE/5][SIZE/5];
+	private JPanel [][] view = new JPanel[SIZE][SIZE];
 	
 	//Constructor
 	public Controller(){
@@ -64,7 +65,7 @@ public class Controller extends JFrame {
 		setSize(new Dimension(SIZE,SIZE));
 		this.setResizable(false);
 //		this.setBackground(Color.YELLOW);
-		
+		current = simulation.toString();
 		
 		setUpMenuBar();
 		
@@ -132,13 +133,19 @@ public class Controller extends JFrame {
 				add(view[i][j], BorderLayout.CENTER);
 			}
 		}
+		this.repaint();
 		
 	}
+	
+	
 	
 	private void step(){
 		int x = (int)(Math.random()*simulation.size());
 		int y = (int)(Math.random()*simulation.size());
+		
 		simulation.acceptDecision(x, y);
+		System.out.println(current.compareTo( simulation.toString() ) == 0 );
+		current = simulation.toString();
 		setUpView();
 	}
 	
@@ -147,9 +154,11 @@ public class Controller extends JFrame {
 			for (int j = 0; j < view[0].length; j++){
 				if(simulation.getOrientation(i, j)==1){
 					view[i][j].setBackground(up);
+					view[i][j].repaint();
 				}
 				else{
 					view[i][j].setBackground(dn);
+					view[i][j].repaint();
 				}
 			}
 		}
